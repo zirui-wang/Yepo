@@ -1,20 +1,19 @@
 var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+    Campground = require("./models/campground"),
+    seedDB = require("./seeds");
+    // Comment = require("./models/comment"),
+    // User = require("./models/user"),
 
 mongoose.connect("mongodb://localhost/yepo", {useMongoClient: true});
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
+seedDB();
 
 //Schema Setup
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String,
-})
 
-var Campground = mongoose.model("Campground", campgroundSchema);
 // Campground.create({
 //     name: "Grantie Hill",
 //     image:"https://img1.sunset.timeinc.net/sites/default/files/styles/1000x1000/public/image/2016/06/main/fall-camping-best-campgrounds-organ-pipe-cactus-national-monument-twin-peaks-1115.jpg?itok=cQMlidOg",
@@ -79,11 +78,11 @@ app.post("/campgrounds", function(req, res){
 
 //SHOW -
 app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if(err){
             console.log(err);
         }else{
             res.render("show", {campground: foundCampground});
         }
-    })
+    });
 })
