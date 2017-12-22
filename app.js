@@ -5,6 +5,7 @@ var express = require("express"),
     mongoose = require("mongoose"),
     Campground = require("./models/campground"),
     seedDB = require("./seeds");
+    methodOverride = require("method-override"),
     Comment = require("./models/comment"),
     passport = require("passport"),
     localStrategy = require("passport-local"),
@@ -19,6 +20,7 @@ mongoose.connect("mongodb://localhost/yepo", {useMongoClient: true});
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 // seedDB(); //seed the database
 
 app.listen(3000,function(){
