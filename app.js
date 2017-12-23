@@ -23,11 +23,6 @@ app.set("view engine", "ejs");
 app.use(flash());
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
-// seedDB(); //seed the database
-
-// app.listen(3000,function(){
-//     console.log("Yepo started");
-// });
 
 //===========================PASSPORT CONFIGURATION=============================
 
