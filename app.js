@@ -17,7 +17,8 @@ var campgroundRoutes = require("./routes/campgrounds"),
     commentRoutes = require("./routes/comments"),
     indexRoutes = require("./routes/index");
 
-mongoose.connect("mongodb://localhost/yepo", {useMongoClient: true});
+// mongoose.connect("mongodb://localhost/yepo", {useMongoClient: true});
+mongoose.connect("mongodb://zirui:910504@ds163806.mlab.com:63806/yepo");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
 app.use(flash());
